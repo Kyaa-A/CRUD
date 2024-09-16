@@ -27,11 +27,45 @@
                 <div class="card">
                     <div class="card-header">
                         CREATE | RETRIEVE | UPDATE | DELETE
-                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#create">Create Fruits</button>
+                        <button type="button" class="btn btn-warning float-end" data-bs-toggle="modal" data-bs-target="#create">Create Fruits</button>
                         </button>
                     </div>
                     <div class="card-body">
-
+                        <form action="_redirect.php" method="post">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="fruitSearch" id="fruitSearch" placeholder="Search Here..." autofocus>
+                            </div>
+                        </form>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">ID</th>
+                                        <th>Fruit</th>
+                                        <th>Quantity</th>
+                                        <th>Registered</th>
+                                        <th>Updated</th>
+                                        <th class="text-center">Edit</th>
+                                        <th class="text-center">Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center"></td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center"></td>
+                                        <td></td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#edit_"> Edit </button>
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_"> Delete </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
