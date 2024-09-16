@@ -1,3 +1,7 @@
+<?php
+    require '_functions.phpm'
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,6 +54,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php
+                                        $getFruits = selectFruits();
+
+                                        while ($fruit = $getFruits -> fetch (PDO::FETCH_ASSOC)){
+                                    ?>
                                     <tr>
                                         <td class="text-center"></td>
                                         <td class="text-center"></td>
