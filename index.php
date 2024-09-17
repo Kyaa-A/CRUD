@@ -1,5 +1,5 @@
 <?php
-    require '_functions.phpm'
+    require '_functions.php'
 ?>
 
 <!DOCTYPE html>
@@ -37,9 +37,17 @@
                     <div class="card-body">
                         <form action="_redirect.php" method="post">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="fruitSearch" id="fruitSearch" placeholder="Search Here..." autofocus>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="fruitSearch"
+                                    id="fruitSearch"
+                                    placeholder="Search here ..."
+                                    autofocus
+                                    required>
                             </div>
                         </form>
+
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
@@ -55,23 +63,46 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                        $getFruits = selectFruits();
+                                    $getFruits = selectFruits();
 
-                                        while ($fruit = $getFruits -> fetch (PDO::FETCH_ASSOC)){
+                                    while ($fruit = $getFruits->fetch(PDO::FETCH_ASSOC)) {
                                     ?>
-                                    <tr>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td class="text-center"></td>
-                                        <td></td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#edit_"> Edit </button>
-                                        </td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_"> Delete </button>
-                                        </td>
-                                    </tr>
+
+                                        <tr>
+                                            <td class="text-center">
+                                                <?= $fruit['fruit_id'] ?>
+                                            </td>
+                                            <td>
+                                                <?= $fruit['fruit_name'] ?>
+                                            </td>
+                                            <td>
+                                                <?= $fruit['fruit_qty'] ?> pc(s)
+                                            </td>
+                                            <td>
+                                                <?= date("M d, Y g:i A", strtotime($fruit['fruit_created'])) ?>
+                                            </td>
+                                            <td>
+                                                <?= date("M d, Y g:i A", strtotime($fruit['fruit_updated'])) ?>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-success"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#edit_">Edit
+                                                </button>
+                                            </td>
+                                            <td class="text-center">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-danger"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#delete_">Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
