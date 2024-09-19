@@ -1,24 +1,57 @@
 <?php
 
-    function dbConnection(){
-        
-        //get Philippines Time Zone
-        date_default_timezone_set('Asia/Manila');
+function dbConnection()
+{
 
-        //Create Connection
-        $db_connection = new PDO('mysql:dbname=iamcrud;host=localhost;charset=utf8mb4','root','');
+    //get Philippines Time Zone
+    date_default_timezone_set('Asia/Manila');
 
-        $db_connection->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
-        $db_connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+    //Create Connection
+    $db_connection = new PDO('mysql:dbname=iamcrud;host=localhost;charset=utf8mb4', 'root', '');
 
-        return $db_connection;
+    $db_connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    $db_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    return $db_connection;
+}
+
+//get fruits
+function selectFruits()
+{
+    $statement = dbConnection()->prepare("SELECT * FROM fruits ORDER BY fruit_id ASC");
+
+    $statement->execute();
+    return $statement;
+}
+
+function createFruit($fruitName, $fruitQty)
+{
+    $statement = dbConnection()->prepare("INSERT INTO 
+                                            fruits
+                                            (
+                                                fruit_name,
+                                                fruit_qty,
+                                                fruit_created,
+                                                fruit_updated
+                                            )
+                                            VALUES
+                                            (
+                                                :fruit_name,
+                                                :fruit_qty,
+                                                NOW(),
+                                                NOW()
+                                            )");
+
+    //instead putting values directly to a query we use PDO variable
+    $statement->execute([
+        'fruit_name' => $fruitName,
+        'fruit_qty' => $fruitQty
+    ]);
+
+    //confirm if the query is executed properly
+    if ($statement) {
+        return true;
+    } else {
+        return false;
     }
-
-    //get fruits
-    function selectFruits(){
-        $statement = dbConnection()->prepare("SELECT * FROM fruits ORDER BY fruit_id ASC");
-
-        $statement->execute();
-        return $statement;
-    }
-?>
+}
