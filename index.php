@@ -91,7 +91,7 @@ require '_functions.php'
                                                     type="button"
                                                     class="btn btn-success"
                                                     data-bs-toggle="modal"
-                                                    data-bs-target="#edit_">Edit
+                                                    data-bs-target="#edit_<?= $fruit['fruit_id'] ?>">Edit
                                                 </button>
                                             </td>
                                             <td class="text-center">
@@ -103,6 +103,50 @@ require '_functions.php'
                                                 </button>
                                             </td>
                                         </tr>
+
+                                        <!-- EDIT MODAL -->
+
+                                        <div class="modal fade" tabindex="-1" role="dialog" id="edit_<?= $fruit['fruit_id'] ?>">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Edit Fruit - <?= $fruit['fruit_name'] ?></h5>
+
+                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <form action="fruit_update.php?fruitId=<?= $fruit['fruit_id'] ?>" method="post">
+
+                                                        <div class="modal-body">
+
+                                                            <div class="form-group">
+                                                                <label for="" class="form-label">Fruit Name</label>
+                                                                <input type="text" class="form-control" name="fruitName" id="fruitName"
+                                                                    value=" <?= $fruit['fruit_name'] ?>" required>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="" class="form-label">Quantity</label>
+                                                                <input type="number" class="form-control" name="fruitQty" id="fruitQty" min="0" step="0.01"
+                                                                    value="<?= $fruit['fruit_qty'] ?>" required>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="submit" name="updateFruit" id="updateFruitd" class="btn btn-primary">Save Changes</button>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        </div>
+
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                     <?php } ?>
                                 </tbody>
                             </table>
