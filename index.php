@@ -1,28 +1,29 @@
 <?php
-    require '_functions.php'
+require '_functions.php'
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>I AM CRUD</title>
 
-    <!-- CSS & JS -->
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
     <!-- Jquery -->
-    <script src="https://cdnjs.cloudfare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- Boostrap CSS and JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"></script>
 
     <!-- Toastr CSS and JS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudfare.com/ajax/libs/toastr.js.2.1.4/toastr.css">
-    <script src="https://cdnjs.cloudfare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 
 </head>
+
 <body class="bg-dark">
     <div class="container">
 
@@ -127,24 +128,24 @@
 
                 <form action="fruit_create.php" method="post">
 
-                <div class="modal-body">
+                    <div class="modal-body">
 
-                    <div class="form-group">
-                        <label for="" class="form-label">Fruit Name</label>
-                        <input type="text" class="form-control" name="fruitName" id="fruitName" required>
+                        <div class="form-group">
+                            <label for="" class="form-label">Fruit Name</label>
+                            <input type="text" class="form-control" name="fruitName" id="fruitName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="" class="form-label">Quantity</label>
+                            <input type="number" class="form-control" name="fruitQty" id="fruitQty" min="0" step="0.01" required>
+                        </div>
+
                     </div>
 
-                    <div class="form-group">
-                    <label for="" class="form-label">Quantity</label>
-                    <input type="number" class="form-control" name="fruitQty" id="fruitQty" min="0" step="0.01" required>
+                    <div class="modal-footer">
+                        <button type="submit" name="createFruit" id="createFruit" class="btn btn-primary">Create</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
-
-                </div>
-                
-                <div class="modal-footer">
-                    <button type="submit" name="createFruit" id="createFruit" class="btn btn-primary">Create</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
 
                 </form>
 
@@ -152,5 +153,8 @@
         </div>
     </div>
 
+    <?php include '_scripts.php'; ?>
+    <?php include '_alerts.php'; ?>
 </body>
+
 </html>

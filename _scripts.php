@@ -1,6 +1,5 @@
 <script>
 
-    //toastr custom options
 	toastr.options = {
 	  "closeButton": true,
 	  "debug": false,
