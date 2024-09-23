@@ -1,15 +1,14 @@
 <?php
-require '_functions.php'
+require '_functions.php';
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I AM CRUD</title>
 
     <!-- Jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -22,17 +21,23 @@ require '_functions.php'
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 
+    <title>CRUD Activity idk</title>
 </head>
 
 <body class="bg-dark">
-    <div class="container">
 
+    <div class="container">
         <div class="row mt-5">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        CREATE | RETRIEVE | UPDATE | DELETE
-                        <button type="button" class="btn btn-warning float-end" data-bs-toggle="modal" data-bs-target="#create">Create Fruits</button>
+                        Create / Retrieve / Update / Delete
+                        <button
+                            type="button"
+                            class="btn btn-primary float-end"
+                            data-bs-toggle="modal"
+                            data-bs-target="#create">
+                            Create Fruits
                         </button>
                     </div>
                     <div class="card-body">
@@ -99,49 +104,67 @@ require '_functions.php'
                                                     type="button"
                                                     class="btn btn-danger"
                                                     data-bs-toggle="modal"
-                                                    data-bs-target="#delete_">Delete
+                                                    data-bs-target="#delete_<?= $fruit['fruit_id'] ?>">Delete
                                                 </button>
                                             </td>
                                         </tr>
 
-                                        <!-- EDIT MODAL -->
 
+                                        <!-- Edit Modal -->
                                         <div class="modal fade" tabindex="-1" role="dialog" id="edit_<?= $fruit['fruit_id'] ?>">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title">Edit Fruit - <?= $fruit['fruit_name'] ?></h5>
+                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    
+                                                    <form action="fruit_update.php?fruitId=<?= $fruit['fruit_id'] ?>" method="post">  
 
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <label for="" class="form-label">Fruit Name</label>
+                                                                <input type="text" class="form-control" name="fruitName" id="fruitName" value="<?= $fruit['fruit_name'] ?>" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="" class="form-label">Quantity</label>
+                                                                <input type="number" class="form-control" name="fruitQty" id="fruitQty" min="0" step="1" value="<?= $fruit['fruit_qty'] ?>" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" name="updateFruit" id="updateFruit" class="btn btn-success">Save Changes</button>
+
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- Delete Modal -->
+                                        <div class="modal fade" tabindex="-1" role="dialog" id="delete_<?= $fruit['fruit_id'] ?>">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Delete Fruit - <?= $fruit['fruit_name'] ?></h5>
                                                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
 
-                                                    <form action="fruit_update.php?fruitId=<?= $fruit['fruit_id'] ?>" method="post">
-
+                                                    <form action="fruit_delete.php?fruitId=<?= $fruit['fruit_id'] ?>" method="post">
                                                         <div class="modal-body">
-
-                                                            <div class="form-group">
-                                                                <label for="" class="form-label">Fruit Name</label>
-                                                                <input type="text" class="form-control" name="fruitName" id="fruitName"
-                                                                    value=" <?= $fruit['fruit_name'] ?>" required>
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <label for="" class="form-label">Quantity</label>
-                                                                <input type="number" class="form-control" name="fruitQty" id="fruitQty" min="0" step="0.01"
-                                                                    value="<?= $fruit['fruit_qty'] ?>" required>
-                                                            </div>
-
+                                                            <p>Trying to delete <?= $fruit['fruit_name'] ?>?</p>
                                                         </div>
-
                                                         <div class="modal-footer">
-                                                            <button type="submit" name="updateFruit" id="updateFruitd" class="btn btn-primary">Save Changes</button>
+                                                            <button type="submit" name="deleteFruit" id="deleteFruit" class="btn btn-danger">Delete</button>
+
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                         </div>
-
                                                     </form>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -155,50 +178,43 @@ require '_functions.php'
                 </div>
             </div>
         </div>
-
     </div>
 
-    <!-- Modal -->
+    <!-- Add fruit modal -->
     <div class="modal fade" tabindex="-1" role="dialog" id="create">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Add Fruit</h5>
-
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
                 <form action="fruit_create.php" method="post">
-
                     <div class="modal-body">
-
                         <div class="form-group">
                             <label for="" class="form-label">Fruit Name</label>
                             <input type="text" class="form-control" name="fruitName" id="fruitName" required>
                         </div>
-
                         <div class="form-group">
                             <label for="" class="form-label">Quantity</label>
                             <input type="number" class="form-control" name="fruitQty" id="fruitQty" min="0" step="0.01" required>
                         </div>
-
                     </div>
-
                     <div class="modal-footer">
-                        <button type="submit" name="createFruit" id="createFruit" class="btn btn-primary">Create</button>
+                        <button type="submit" name="createFruit" id="createFruit" class="btn btn-success">Create</button>
+
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
-
                 </form>
-
             </div>
         </div>
     </div>
 
     <?php include '_scripts.php'; ?>
     <?php include '_alerts.php'; ?>
-</body>
 
+
+</body>
 </html>
